@@ -1,0 +1,167 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script src="/javascripts/jquery-3.3.1.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+
+  <link rel='stylesheet' href='/stylesheets/dash.css' />
+
+</head>
+
+<body>
+  <nav>
+    <div>
+
+      <h1>Robot Controller</h1>
+    </div>
+    <ul>
+      <li><a class="item-1" href="/name">Save</a></li>
+      <li><a class="item-2" href="/">Save & Exit</a></li>
+    </ul>
+  </nav>
+
+
+  <div class="overlay"></div>
+
+  <div class="main">
+    <div class="control">
+      <div id="arrow-up"><img src="/images/arrow-boxed-outline-filled.png" alt="arrow"></div>
+      <div id="arrow-left"><img src="/images/arrow-boxed-outline-filled.png" alt="arrow"></div>
+      <div id="arrow-right"><img src="/images/arrow-boxed-outline-filled.png" alt="arrow"></div>
+      <div id="arrow-down"><img src="/images/arrow-boxed-outline-filled.png" alt="arrow"></div>
+    </div>
+    <div class="state">
+      <h3 class="text-muted">
+        <b><u>Actual state of the Robot:</u></b>
+      </h3>
+      <div id="actualState">
+        <h4 id="arrowState">
+        </h4>
+        <h4 id="arrowStateS">Stopped</h4>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("contextmenu", function (e) {
+      e.preventDefault();
+    })
+
+    const socket = io();
+    let temp = false;
+    let startDate, endDate;
+
+    socket.on('connect', () => {
+      document.getElementById('arrowState').style.display = 'none';
+    });
+
+
+    socket.on('actualState', (data) => {
+      if (data == 'stop') {
+        $("#arrowState").hide();
+        $("#arrowStateS").show();
+      }
+      else {
+        $("#arrowState")
+          .html(data)
+          .show()
+        $("#arrowStateS").hide();
+
+      }
+    });
+
+    $("#arrow-up")
+      .on("mousedown touchstart", () => {
+        if (temp == false) {
+          temp = true;
+          startDate = new Date();
+          socket.emit('arrow', 'up');
+        }
+      })
+      .on("mouseup touchend", () => {
+        if (temp == true) {
+          temp = false
+          endDate = new Date();
+          let seconds = (endDate.getTime() - startDate.getTime()) / 1000;
+          console.log('up :', seconds);
+          socket.emit('arrow', {
+            time: seconds,
+            direction: 'up',
+            state: 'stop'
+          });
+        }
+      });
+
+
+    $("#arrow-down")
+      .on("mousedown touchstart", () => {
+        if (temp == false) {
+          temp = true;
+          startDate = new Date();
+          socket.emit('arrow', 'down');
+        }
+      })
+      .on("mouseup touchend", () => {
+        if (temp == true) {
+          temp = false
+          endDate = new Date();
+          let seconds = (endDate.getTime() - startDate.getTime()) / 1000;
+          console.log('down :', seconds);
+          socket.emit('arrow', {
+            time: seconds,
+            direction: 'down',
+            state: 'stop'
+          });
+        }
+      });
+
+    $("#arrow-left")
+      .on("mousedown touchstart", () => {
+        if (temp == false) {
+          temp = true;
+          startDate = new Date();
+          socket.emit('arrow', 'left');
+        }
+      })
+      .on("mouseup touchend", () => {
+        if (temp == true) {
+          temp = false
+          endDate = new Date();
+          let seconds = (endDate.getTime() - startDate.getTime()) / 1000;
+          console.log('left :', seconds);
+          socket.emit('arrow', {
+            time: seconds,
+            direction: 'left',
+            state: 'stop'
+          });
+        }
+      });
+
+    $("#arrow-right")
+      .on("mousedown touchstart", () => {
+        if (temp == false) {
+          temp = true;
+          startDate = new Date();
+          socket.emit('arrow', 'right');
+        }
+      })
+      .on("mouseup touchend", () => {
+        if (temp == true) {
+          temp = false
+          endDate = new Date();
+          let seconds = (endDate.getTime() - startDate.getTime()) / 1000;
+          console.log('right :', seconds);
+          socket.emit('arrow', {
+            time: seconds,
+            direction: 'right',
+            state: 'stop'
+          });
+        }
+      });
+
+  </script>
+</body>
+
+</html>

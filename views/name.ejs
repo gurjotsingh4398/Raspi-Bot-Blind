@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/name.css">
+  <title>Robo-Eye</title>
+</head>
+
+<body>
+  <div class="back-image"></div>
+  <div class="overlay"></div>
+  <nav>
+    <img src="/images/logo3.png" alt="logo">
+    <span class="logo-text">RoboEye</span>
+  </nav>
+  <div class="main">
+    <div class="object-name">
+      <p>Enter</p> the Object Name:
+    </div>
+    <form action="/dashboard" method="get">
+      <input type="text" name="object" id="object">
+      <input type="submit" value="submit" id="object-submit">
+    </form>
+    <form action="/reset" method="get" id="reset">
+      <input type="submit" value="Reset The Robot" id="reset-submit">
+    </form>
+  </div>
+</body>
+
+</html>
