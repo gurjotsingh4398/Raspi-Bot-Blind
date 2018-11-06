@@ -1,14 +1,20 @@
 const fs = require("fs");
 
+const optimize = require("./optimize_path");
+
 let prs_data;
 let rawdata;
 let data;
 
 const creation = (object, path) => {
+  //optimising path by eliminating two consecutive same path direction
+  path = optimize(path);
+
   let combined = {
     object,
     path
   };
+
   //file handling json
 
   rawdata = fs.readFileSync("data.json");
