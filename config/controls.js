@@ -86,8 +86,8 @@ const stop = () => {
 };
 
 module.exports = {
-  forward: forward,
-  backward: backward,
+  up: forward,
+  down: backward,
   left: left,
   right: right,
   stop: stop

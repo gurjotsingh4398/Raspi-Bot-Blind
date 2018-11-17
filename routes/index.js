@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const creation = require("../ds/saving");
+const reset = require("../ds/reset");
+const identify = require("../ds/contruct");
+
 let path = require("../config/socket").path;
-let creation = require("../ds/saving");
-let reset = require("../ds/reset");
 
 let pre = -1;
 let now;
@@ -57,7 +59,7 @@ router.get("/dashboard", (req, res) => {
 router.get("/search", (req, res) => {
   if (req.query.speech.length > 0 && req.query.speech !== "") {
     find = req.query.speech;
-    //use this find variable to control robot usind ds contructed.
+    identify(find);
   }
   res.redirect("/");
 });
