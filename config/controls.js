@@ -1,88 +1,43 @@
-const gpio = require("onoff").Gpio;
+const Gpio = require("pigpio").Gpio;
 
-var pin17 = new gpio(17, "out");
-var pin22 = new gpio(22, "out");
-var pin23 = new gpio(23, "out");
-var pin24 = new gpio(24, "out");
+var pin17 = new Gpio(17, { mode: Gpio.OUTPUT });
+var pin22 = new Gpio(22, { mode: Gpio.OUTPUT });
+var pin23 = new Gpio(23, { mode: Gpio.OUTPUT });
+var pin24 = new Gpio(24, { mode: Gpio.OUTPUT });
 
-const right = () => {
-  pin17.write(1, () => {
-    // console.log("false on pin 17");
-  });
-  pin22.write(0, () => {
-    //console.log("false on pin 22");
-  });
-
-  pin23.write(1, () => {
-    //console.log("false on pin 23");
-  });
-  pin24.write(0, () => {
-    //console.log("false on pin 24");
-  });
-};
-
-const left = () => {
-  pin17.write(0, () => {
-    //console.log("false on pin 17");
-  });
-  pin22.write(1, () => {
-    //console.log("false on pin 22");
-  });
-
-  pin23.write(0, () => {
-    //console.log("false on pin 23");
-  });
-  pin24.write(1, () => {
-    //console.log("false on pin 24");
-  });
+const forward = () => {
+  pin17.pwmWrite(0);
+  pin22.pwmWrite(255);
+  pin23.pwmWrite(255);
+  pin24.pwmWrite(0);
 };
 
 const backward = () => {
-  pin17.write(1, () => {
-    //console.log("false on pin 17");
-  });
-  pin22.write(0, () => {
-    //console.log("false on pin 22");
-  });
-
-  pin23.write(0, () => {
-    //console.log("false on pin 23");
-  });
-  pin24.write(1, () => {
-    //console.log("false on pin 24");
-  });
+  pin17.pwmWrite(255);
+  pin22.pwmWrite(0);
+  pin23.pwmWrite(0);
+  pin24.pwmWrite(255);
 };
 
-const forward = () => {
-  pin17.write(0, () => {
-    //console.log("false on pin 17");
-  });
-  pin22.write(1, () => {
-    //console.log("false on pin 22");
-  });
+const left = () => {
+  pin17.pwmWrite(0);
+  pin22.pwmWrite(255);
+  pin23.pwmWrite(0);
+  pin24.pwmWrite(255);
+};
 
-  pin23.write(1, () => {
-    //console.log("false on pin 23");
-  });
-  pin24.write(0, () => {
-    //console.log("false on pin 24");
-  });
+const right = () => {
+  pin17.pwmWrite(255);
+  pin22.pwmWrite(0);
+  pin23.pwmWrite(255);
+  pin24.pwmWrite(0);
 };
 
 const stop = () => {
-  pin17.write(0, () => {
-    //console.log("false on pin 17");
-  });
-  pin22.write(0, () => {
-    //console.log("false on pin 22");
-  });
-
-  pin23.write(0, () => {
-    //console.log("false on pin 23");
-  });
-  pin24.write(0, () => {
-    //console.log("false on pin 24");
-  });
+  pin17.pwmWrite(0);
+  pin22.pwmWrite(0);
+  pin23.pwmWrite(0);
+  pin24.pwmWrite(0);
 };
 
 module.exports = {
