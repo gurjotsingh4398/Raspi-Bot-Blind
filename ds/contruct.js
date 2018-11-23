@@ -81,23 +81,12 @@ const run_bot = index => {
       fun_series.push(right);
     }
   }
-  //making a 180 deg turn
-  let left = callback => {
-    console.log("180deg turn left");
-    //controls.left();
-    setTimeout(function() {
-      //controls.stop();
-      console.log("stop 180deg");
-      callback(null, 3);
-    }, timeFor180 * 1000);
-  };
-  fun_series.push(left);
 
   //running bot back to start position
   temp_arr = JSON.parse(JSON.stringify(arr));
   temp_arr.reverse();
 
-  for (let i = 0; i < temp_arr.length; i++) {
+  for (let i = 1; i < temp_arr.length; i++) {
     let dir = temp_arr[i].direction;
     let time = temp_arr[i].time;
     if (dir == "up") {
@@ -148,6 +137,16 @@ const run_bot = index => {
   }
 
   //making a 180 deg turn
+  let time_last = temp_arr[0].time;
+  let left = callback => {
+    console.log("rev right");
+    // controls.left();
+    setTimeout(function() {
+      //controls.stop();
+      console.log("stop");
+      callback(null, 4);
+    }, time_last * 1000);
+  };
   fun_series.push(left);
 
   async.series(fun_series, function(err, results) {
